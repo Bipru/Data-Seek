@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>DataSeekAI · chat interface</title>
+  <!-- Google Font & simple icon approach (no external icon libs) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <!-- main container -->
+  <div class="app-wrapper">
+
+    <!-- SIDEBAR (left) -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="project-title">DataSeekAI</div>
+        <button class="new-chat-btn" id="newChatBtn">+ New Chat</button>
+      </div>
+
+      <!-- scrollable chat list -->
+      <div class="chat-list" id="chatList">
+        <!-- chat items will be injected via JS, but we add some static examples for demonstration -->
+        <div class="chat-item" data-chat-id="1">
+          <span class="chat-name">Data analysis tips</span>
+          <div class="chat-actions">
+            <button class="rename-chat" title="Rename chat">✏️</button>
+            <button class="delete-chat" title="Delete chat">🗑️</button>
+          </div>
+        </div>
+        <div class="chat-item" data-chat-id="2">
+          <span class="chat-name">Q2 sales report</span>
+          <div class="chat-actions">
+            <button class="rename-chat" title="Rename chat">✏️</button>
+            <button class="delete-chat" title="Delete chat">🗑️</button>
+          </div>
+        </div>
+        <div class="chat-item" data-chat-id="3">
+          <span class="chat-name">PDF summary</span>
+          <div class="chat-actions">
+            <button class="rename-chat" title="Rename chat">✏️</button>
+            <button class="delete-chat" title="Delete chat">🗑️</button>
+          </div>
+        </div>
+        <div class="chat-item" data-chat-id="4">
+          <span class="chat-name">Excel insights</span>
+          <div class="chat-actions">
+            <button class="rename-chat" title="Rename chat">✏️</button>
+            <button class="delete-chat" title="Delete chat">🗑️</button>
+          </div>
+        </div>
+        <div class="chat-item" data-chat-id="5">
+          <span class="chat-name">DataSeekAI features</span>
+          <div class="chat-actions">
+            <button class="rename-chat" title="Rename chat">✏️</button>
+            <button class="delete-chat" title="Delete chat">🗑️</button>
+          </div>
+        </div>
+        <!-- long list to test scrolling -->
+      </div>
+
+      <!-- subtle footer (optional) -->
+      <div class="sidebar-footer"></div>
+    </aside>
+
+    <!-- MAIN CHAT AREA -->
+    <main class="main-chat" id="mainChat">
+      <!-- top bar with theme toggle & hamburger (mobile) -->
+      <div class="chat-header">
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">☰</button>
+        <div class="header-center"></div>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+      </div>
+
+      <!-- messages container (smooth scroll) -->
+      <div class="messages-container" id="messagesContainer">
+        <!-- welcome message from AI -->
+        <div class="message ai-message">
+          <div class="bubble">Hello! I'm DataSeekAI. Ask me anything about your data or upload a file (PDF, Excel…).
+          </div>
+          <div class="chart-container" style="max-width: 350px; height: 220px; margin-top: 4px; padding: 12px;">
+            <canvas id="demoChartCanvas"></canvas>
+          </div>
+        </div>
+        <!-- example user message -->
+        <div class="message user-message">
+          <div class="bubble">Can you summarize the sales report?</div>
+        </div>
+        <!-- example AI long message -->
+        <div class="message ai-message">
+          <div class="bubble">Sure! Based on the Q2 report, revenue grew by 12% compared to Q1. Top product: Analytics
+            Pro. Would you like a breakdown by region?</div>
+        </div>
+        <!-- spacer for loading demo (will be replaced by actual loading) -->
+      </div>
+
+      <!-- drag & drop overlay (hidden by default) -->
+      <div class="drag-overlay" id="dragOverlay">
+        <div class="drag-content">📁 Drop your file here (PDF, Excel, CSV ...)</div>
+      </div>
+
+      <!-- fixed bottom input area -->
+      <div class="input-area" id="inputArea">
+        <div class="input-wrapper">
+          <!-- hidden file input -->
+          <input type="file" id="fileInput" multiple accept=".pdf,.xlsx,.xls,.csv,.txt" style="display: none;">
+
+          <button class="upload-btn" id="uploadButton" title="Upload file">📎</button>
+
+          <input type="text" class="text-input" id="messageInput" placeholder="Ask DataSeekAI about your data..."
+            autocomplete="off">
+
+          <button class="send-btn" id="sendButton" title="Send message">📤</button>
+        </div>
+        <!-- small hint: drag & drop area active -->
+      </div>
+    </main>
+  </div>
+
+  <!-- loading animation (hidden by default, used when AI generates) -->
+  <div class="loading-indicator" id="loadingIndicator">
+    <div class="dot-flashing"></div>
+    <span>DataSeekAI is thinking...</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
